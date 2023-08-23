@@ -1,30 +1,30 @@
 // product N0. 1
 
-getEventHandler('btn-accessories', 'spoon-holder-price');
+getEventHandler('btn-accessories', 'spoon-holder-price', 'product1', 'product-img1');
 
 // Product N0. 2
 
-getEventHandler('btn-chopper', 'chopper-price');
+getEventHandler('btn-chopper', 'chopper-price', 'product2', 'product-img2');
 
 // Product N0. 3
 
-getEventHandler('btn-cooker', 'cooker-price');
+getEventHandler('btn-cooker', 'cooker-price', 'product3', 'product-img3');
 
 // Product N0. 4
 
-getEventHandler('btn-cap', 'cap-price');
+getEventHandler('btn-cap', 'cap-price', 'product4', 'product-img4');
 
 // Product N0. 5
 
-getEventHandler('btn-jersey', 'jersey-price');
+getEventHandler('btn-jersey', 'jersey-price', 'product5', 'product-img5');
 
 // Product N0. 6
 
-getEventHandler('btn-cates', 'cates-price');
+getEventHandler('btn-cates', 'cates-price', 'product6', 'product-img6');
 
 // function for card event handler
 
-function getEventHandler(cardBtn, cardPriceId){
+function getEventHandler(cardBtn, cardPriceId, productName, productImage){
     document.getElementById(cardBtn).addEventListener('click', () => {
         const cardPrice = document.getElementById(cardPriceId);
         const cardPriceValue = parseFloat(cardPrice.innerText);
@@ -34,9 +34,35 @@ function getEventHandler(cardBtn, cardPriceId){
         const totalPriceValue = parseFloat(totalPrice.innerText);
 
         const inputField = document.getElementById('coupon-field');
-        // const inputFieldValue = inputField.value;
-        // console.log(inputFieldValue);
+
+        const accessoriesName = document.getElementById(productName);
+        const accessoriesNameValue = accessoriesName.innerText;
         
+        const productImg = document.getElementById(productImage);
+
+        const sourceImg = productImg.getAttribute('src');
+
+
+        const accessoriesNameContainer = document.getElementById('product-name');
+        const div = document.createElement('div');
+        const count = accessoriesNameContainer.childElementCount;
+        div.classList.add('mb-5', 'flex', 'items-center');
+        
+        const img = document.createElement('img');
+        img.setAttribute('src', sourceImg);
+
+        img.classList.add('w-10', 'h-10', 'mr-3')
+
+        const p = document.createElement('p');
+        p.innerText = `${count+1}. ${accessoriesNameValue}`;
+
+        div.appendChild(img);
+
+        div.appendChild(p);
+
+        accessoriesNameContainer.appendChild(div)
+
+
 
         const btnPurchase = document.getElementById('btn-make-purchase');
 
@@ -61,7 +87,7 @@ function getEventHandler(cardBtn, cardPriceId){
             
             // console.log(inputFieldValue);
             if(inputField.value == 'DD'){
-                const discount = ((total/100* 20));
+                const discount = ((total/100* 20)).toFixed(2);
                 const grandTotalValue = total - discount;
                 const discountPrice = document.getElementById('discount');
                 discountPrice.innerText = discount;
